@@ -21,12 +21,19 @@ namespace AvaloniaUI.Ribbon
                 Dispatcher.UIThread.Post(sender.SizeControls);
             });
 
+            IndexTabProperty.Changed.AddClassHandler<RibbonGroupsStackPanel>((sender, e) =>
+            {
+                Dispatcher.UIThread.Post(sender.SizeControls);
+            });
+
             BoundsProperty.Changed.AddClassHandler<RibbonGroupsStackPanel>((sender, e) =>
             {
                 if (e.NewValue is Rect newRect)
                     sender.SizeControls(newRect.Size);
             });
         }
+
+        public static readonly StyledProperty<int> IndexTabProperty = AvaloniaProperty.Register<Ribbon, int>(nameof(IndexTab));
 
         #region Methods
         private double GetChildrenTotalHeight()
@@ -204,6 +211,14 @@ namespace AvaloniaUI.Ribbon
 
             SizeControls();
         }
+
+
+        public int IndexTab
+        {
+            get => GetValue(IndexTabProperty);
+            set => SetValue(IndexTabProperty, value);
+        }
+
         #endregion
     }
 }

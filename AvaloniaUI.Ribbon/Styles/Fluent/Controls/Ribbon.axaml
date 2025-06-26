@@ -159,6 +159,7 @@
 											<local:RibbonGroupsStackPanel
                                                 x:Name="PART_ItemsPanel"
                                                 Width="{Binding $parent[ItemsControl].Bounds.Width}"
+                                                IndexTab="{Binding $parent[Ribbon].SelectedIndex}"
                                                 Margin="0"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Stretch"
@@ -293,6 +294,7 @@
 												<local:RibbonGroupsStackPanel
                                                     x:Name="PART_ItemsPanel"
                                                     Height="{Binding $parent[ItemsControl].Bounds.Height}"
+                                                    IndexTab="{Binding $parent[Ribbon].SelectedIndex}"
                                                     Margin="0"
                                                     HorizontalAlignment="Stretch"
                                                     VerticalAlignment="Top"
