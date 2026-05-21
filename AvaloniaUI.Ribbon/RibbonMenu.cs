@@ -12,6 +12,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.VisualTree;
+using Avalonia.Controls.Primitives; // WindowDrawnDecorations
 using AvaloniaUI.Ribbon.Contracts;
 
 namespace AvaloniaUI.Ribbon;
@@ -145,7 +146,7 @@ public sealed class RibbonMenu : ItemsControl, IRibbonMenu
         if (menuPopup == null) return;
 
         var descendants = topLevel.GetVisualDescendants();
-        var titleBar = descendants.FirstOrDefault(x => x is TitleBar);
+        var titleBar = descendants.FirstOrDefault(x => x is WindowDrawnDecorations);
         var ribbon = descendants.FirstOrDefault(x => x is Ribbon) as Ribbon;
         if (ribbon == null) return;
 

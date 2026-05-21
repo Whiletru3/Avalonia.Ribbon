@@ -5,22 +5,24 @@
 
 	<Style Selector="local|RibbonDropDownButton">
 		<Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}" />
-		<Setter Property="Foreground" Value="{Binding $parent[Ribbon].Foreground}" />
+		<Setter Property="Foreground" Value="{Binding $parent[local:Ribbon].Foreground}" />
 		<Setter Property="Padding" Value="3" />
 		<Setter Property="QuickAccessTemplate">
-			<ControlTemplate>
-				<RibbonDropDownButton
-                    Height="34"
-                    Classes="quickAccessButton"
-                    Focusable="False"
-                    Icon="{Binding QuickAccessIcon}"
-                    ItemsSource="{Binding ItemsSource}"
-                    KeyTip.KeyTipKeys="{Binding KeyTip.Tip}"
-                    MaxSize="Small"
-                    MinSize="Small"
-                    Size="Small"
-                    ToolTip.Tip="{Binding ToolTip.Tip}" />
-			</ControlTemplate>
+			<Setter.Value>
+				<ControlTemplate>
+					<local:RibbonDropDownButton
+                        Height="34"
+                        Classes="quickAccessButton"
+                        Focusable="False"
+                        Icon="{ReflectionBinding QuickAccessIcon}"
+                        ItemsSource="{ReflectionBinding ItemsSource}"
+                        local:KeyTip.KeyTipKeys="{ReflectionBinding KeyTip.Tip}"
+                        MaxSize="Small"
+                        MinSize="Small"
+                        Size="Small"
+                        ToolTip.Tip="{ReflectionBinding ToolTip.Tip}" />
+				</ControlTemplate>
+			</Setter.Value>
 		</Setter>
 	</Style>
 	<Style Selector="local|RibbonDropDownButton.quickAccessButton:not(:pointerover):not(:pressed)">
@@ -32,52 +34,9 @@
 		<Setter Property="Padding" Value="9" />
 		<Setter Property="MaxWidth" Value="66" />
 		<Setter Property="Template">
-			<ControlTemplate>
-				<Border Classes="RibbonButtonBackgroundBorder">
-					<Button
-                        Name="PART_PrimaryButton"
-                        Padding="{TemplateBinding Padding}"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="0"
-                        ClickMode="Press"
-                        Focusable="False"
-                        FontSize="12.5"
-                        Foreground="{TemplateBinding Foreground}">
-						<StackPanel Orientation="Vertical">
-							<ContentPresenter Margin="0,0,0,4" Content="{TemplateBinding LargeIcon}" />
-							<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-								<ContentPresenter Content="{TemplateBinding Content}" />
-								<Path
-                                    Margin="4,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Data="M 0 0 L 3 3 L 6 0"
-                                    Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
-                                    StrokeThickness="1" />
-							</StackPanel>
-						</StackPanel>
-						<Button.Flyout>
-							<Flyout FlyoutPresenterClasses="PaddingLess" ShowMode="TransientWithDismissOnPointerMoveAway">
-								<ScrollViewer>
-									<ItemsPresenter
-                                        Name="PART_ItemsPresenter"
-                                        Margin="{DynamicResource MenuFlyoutScrollerMargin}"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
-								</ScrollViewer>
-							</Flyout>
-						</Button.Flyout>
-					</Button>
-				</Border>
-			</ControlTemplate>
-		</Setter>
-	</Style>
-	<Style Selector="local|RibbonDropDownButton[Size=Medium]">
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Border Classes="RibbonButtonBackgroundBorder">
-					<DockPanel VerticalAlignment="Center">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:RibbonDropDownButton">
+					<Border Classes="RibbonButtonBackgroundBorder">
 						<Button
                             Name="PART_PrimaryButton"
                             Padding="{TemplateBinding Padding}"
@@ -86,65 +45,21 @@
                             Background="{TemplateBinding Background}"
                             BorderThickness="0"
                             ClickMode="Press"
-                            DockPanel.Dock="Right"
                             Focusable="False"
-                            FontSize="12.5">
-							<StackPanel Orientation="Horizontal">
-								<ContentPresenter Content="{TemplateBinding Icon}" />
-								<ContentPresenter Margin="3,0,0,0" Content="{TemplateBinding Content}" />
-								<Path
-                                    Margin="4,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Data="M 0 0 L 3 3 L 6 0"
-                                    Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
-                                    StrokeThickness="1" />
-							</StackPanel>
-							<Button.Flyout>
-								<Flyout
-                                    FlyoutPresenterClasses="PaddingLess"
-                                    Placement="BottomEdgeAlignedLeft"
-                                    ShowMode="TransientWithDismissOnPointerMoveAway">
-									<ScrollViewer>
-										<ItemsPresenter
-                                            Name="PART_ItemsPresenter"
-                                            Margin="{DynamicResource MenuFlyoutScrollerMargin}"
-                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
-									</ScrollViewer>
-								</Flyout>
-							</Button.Flyout>
-						</Button>
-					</DockPanel>
-				</Border>
-			</ControlTemplate>
-		</Setter>
-	</Style>
-	<Style Selector="local|RibbonDropDownButton[Size=Small]">
-		<Setter Property="Width" Value="42" />
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Border Classes="RibbonButtonBackgroundBorder">
-					<DockPanel VerticalAlignment="Center">
-						<Button
-                            Name="PART_PrimaryButton"
-                            Padding="{TemplateBinding Padding}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="0"
-                            ClickMode="Press"
-                            DockPanel.Dock="Right"
-                            Focusable="False"
-                            FontSize="12.5">
-							<StackPanel Orientation="Horizontal">
-								<ContentPresenter Margin="0,0,4,0" Content="{TemplateBinding Icon}" />
-								<Path
-                                    Margin="4,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Data="M 0 0 L 3 3 L 6 0"
-                                    Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
-                                    StrokeThickness="1" />
+                            FontSize="12.5"
+                            Foreground="{TemplateBinding Foreground}">
+							<StackPanel Orientation="Vertical">
+								<ContentPresenter Margin="0,0,0,4" Content="{TemplateBinding LargeIcon}" />
+								<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+									<ContentPresenter Content="{TemplateBinding Content}" />
+									<Path
+                                        Margin="4,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M 0 0 L 3 3 L 6 0"
+                                        Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
+                                        StrokeThickness="1" />
+								</StackPanel>
 							</StackPanel>
 							<Button.Flyout>
 								<Flyout FlyoutPresenterClasses="PaddingLess" ShowMode="TransientWithDismissOnPointerMoveAway">
@@ -157,9 +72,102 @@
 								</Flyout>
 							</Button.Flyout>
 						</Button>
-					</DockPanel>
-				</Border>
-			</ControlTemplate>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="local|RibbonDropDownButton[Size=Medium]">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:RibbonDropDownButton">
+					<Border Classes="RibbonButtonBackgroundBorder">
+						<DockPanel VerticalAlignment="Center">
+							<Button
+                                Name="PART_PrimaryButton"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                ClickMode="Press"
+                                DockPanel.Dock="Right"
+                                Focusable="False"
+                                FontSize="12.5">
+								<StackPanel Orientation="Horizontal">
+									<ContentPresenter Content="{TemplateBinding Icon}" />
+									<ContentPresenter Margin="3,0,0,0" Content="{TemplateBinding Content}" />
+									<Path
+                                        Margin="4,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M 0 0 L 3 3 L 6 0"
+                                        Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
+                                        StrokeThickness="1" />
+								</StackPanel>
+								<Button.Flyout>
+									<Flyout
+                                        FlyoutPresenterClasses="PaddingLess"
+                                        Placement="BottomEdgeAlignedLeft"
+                                        ShowMode="TransientWithDismissOnPointerMoveAway">
+										<ScrollViewer>
+											<ItemsPresenter
+                                                Name="PART_ItemsPresenter"
+                                                Margin="{DynamicResource MenuFlyoutScrollerMargin}"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+										</ScrollViewer>
+									</Flyout>
+								</Button.Flyout>
+							</Button>
+						</DockPanel>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="local|RibbonDropDownButton[Size=Small]">
+		<Setter Property="Width" Value="42" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:RibbonDropDownButton">
+					<Border Classes="RibbonButtonBackgroundBorder">
+						<DockPanel VerticalAlignment="Center">
+							<Button
+                                Name="PART_PrimaryButton"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                ClickMode="Press"
+                                DockPanel.Dock="Right"
+                                Focusable="False"
+                                FontSize="12.5">
+								<StackPanel Orientation="Horizontal">
+									<ContentPresenter Margin="0,0,4,0" Content="{TemplateBinding Icon}" />
+									<Path
+                                        Margin="4,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M 0 0 L 3 3 L 6 0"
+                                        Stroke="{Binding (TextBlock.Foreground), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContentPresenter}}"
+                                        StrokeThickness="1" />
+								</StackPanel>
+								<Button.Flyout>
+									<Flyout FlyoutPresenterClasses="PaddingLess" ShowMode="TransientWithDismissOnPointerMoveAway">
+										<ScrollViewer>
+											<ItemsPresenter
+                                                Name="PART_ItemsPresenter"
+                                                Margin="{DynamicResource MenuFlyoutScrollerMargin}"
+                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+										</ScrollViewer>
+									</Flyout>
+								</Button.Flyout>
+							</Button>
+						</DockPanel>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
 		</Setter>
 	</Style>
 
