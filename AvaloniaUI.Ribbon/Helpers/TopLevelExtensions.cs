@@ -2,6 +2,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Chrome;
 using Avalonia.VisualTree;
+using Avalonia.Controls.Primitives; // WindowDrawnDecorations
 
 namespace AvaloniaUI.Ribbon.Helpers;
 
@@ -11,7 +12,7 @@ public static class TopLevelExtensions
     {
         if (topLevel == null) return null;
         var descendants = topLevel.GetVisualDescendants();
-        var titleBar = descendants.FirstOrDefault(x => x is TitleBar);
+        var titleBar = descendants.FirstOrDefault(x => x is WindowDrawnDecorations);
 
 
         return null;
